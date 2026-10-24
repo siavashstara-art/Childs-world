@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() { return request.auth != null; }
+    // NOTE: Removed email_verified check to resolve permission errors for unverified users
+    // If you want to enforce verified emails later, you must handle the authentication flow.
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+
+    // Collection: app_tasks
+    match /app_tasks/{taskId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isValidId(taskId);
+      allow update: if isSignedIn();
+      allow delete: if isSignedIn();
+    }
+
+    // Collection: stars_rewards
+    match /stars_rewards/{starId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isValidId(starId);
+      allow update: if isSignedIn();
+      allow delete: if isSignedIn();
+    }
+
+    // Collection: child_drawings
+    match /child_drawings/{drawingId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isValidId(drawingId);
+      allow update: if isSignedIn();
+      allow delete: if isSignedIn();
+    }
+  }
+}

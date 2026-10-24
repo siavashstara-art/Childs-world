@@ -1,0 +1,57 @@
+{
+  "entities": {
+    "Task": {
+      "title": "Task",
+      "description": "Represents a task for a child.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "isCompleted": { "type": "boolean" },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["id", "title", "content", "isCompleted", "timestamp"]
+    },
+    "StarReward": {
+      "title": "StarReward",
+      "description": "Represents a star reward.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "ownerType": { "type": "string", "enum": ["CHILD", "PARENT"] },
+        "starsCount": { "type": "number" },
+        "rewardTitle": { "type": "string" },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["id", "ownerType", "starsCount", "rewardTitle", "timestamp"]
+    },
+    "ChildDrawing": {
+      "title": "ChildDrawing",
+      "description": "Represents a drawing by a child.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "imagePath": { "type": "string" },
+        "isPublic": { "type": "boolean" },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["id", "title", "imagePath", "isPublic", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/app_tasks/{taskId}": {
+      "schema": { "$ref": "Task" },
+      "description": "Collection of tasks."
+    },
+    "/stars_rewards/{starId}": {
+      "schema": { "$ref": "StarReward" },
+      "description": "Collection of star rewards."
+    },
+    "/child_drawings/{drawingId}": {
+      "schema": { "$ref": "ChildDrawing" },
+      "description": "Collection of child drawings."
+    }
+  }
+}

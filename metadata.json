@@ -1,0 +1,6 @@
+{
+  "name": "Tavana City",
+  "description": "A web application managing tasks, star rewards, and child drawings.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
